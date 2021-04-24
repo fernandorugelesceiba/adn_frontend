@@ -1,0 +1,53 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="contenedor-listado-cuentas" *ngIf="listadoCuentas.length > 0">
+                <div class="row encabezado">
+                    <div class="col">
+                        Número de cuenta
+                    </div>
+                    <div class="col">
+                        Monto
+                    </div>
+                    <div class="col">
+                        Monto maximo
+                    </div>
+                    <div class="col">
+                        Cliente
+                    </div>
+                    <div class="col">
+                        Fecha de creacion
+                    </div>
+                    <div class="col">
+                        ELiminar
+                    </div>
+                </div>
+                <div class="cada-item" *ngFor="let cuenta of listadoCuentas; let i = index">
+                    <div class="row body">
+                        <div class="col">
+                            {{cuenta.numeroCuenta}}
+                        </div>
+                        <div class="col">
+                            {{cuenta.monto}}
+                        </div>
+                        <div class="col">
+                            {{cuenta.montoMaximo}}
+                        </div>
+                        <div class="col">
+                            {{mapaClientes.get(cuenta.idCliente)}}
+                        </div>
+                        <div class="col">
+                            {{cuenta.fechaCreacion}}
+                        </div>
+                        <div class="col">
+                            <button type="button" (click)="eliminar(cuenta.id,i)" class="btn btn-warning">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

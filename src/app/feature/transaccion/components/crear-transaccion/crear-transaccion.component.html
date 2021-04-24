@@ -1,0 +1,122 @@
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="col-4">
+      <div class="container">
+        <div class="row mt-3">
+          <div class="col-12">
+            <h4>Crear una transacción</h4>
+          </div>
+          <div class="col-12">
+            <form [formGroup]="transaccionFormulario" (ngSubmit)="consultarCuentas()">
+              <div class="col-12">
+                <p>Selecciona un cliente</p>
+                <select validar class="form-control" formControlName="idCliente" id="idCliente" name="idCliente"
+                  [(ngModel)]="idClienteSeleccionado">
+                  <option *ngFor='let item of listadoClientes' [value]="item.id">
+                    {{item.nombre}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary mt-3" *ngIf="idClienteSeleccionado">Trear cuentas</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8" *ngIf="cuentaDestinoSeleccionada">
+      <form [formGroup]="transaccionFormulario" (ngSubmit)="crearTransaccion()">
+        <div class="row mt-3">
+          <div class="col-12">
+            <h4>Datos de la transacción</h4>
+          </div>
+          <div class="col-4">
+            <p>Cuenta origen</p>
+            <span class="fst-italic">{{cuentaOrigenSeleccionada.numeroCuenta}}</span>
+          </div>
+          <div class="col-4">
+            <p>Cuenta destino</p>
+            <span class="fst-italic">{{cuentaDestinoSeleccionada.numeroCuenta}}</span>
+          </div>
+          <div class="col-4">
+            <p>Ingrese el valor de la transaccion</p>
+            <input validar class="form-control" formControlName="montoTransaccion" id="montoTransaccion"
+              type="number" name="montoTransaccion" [(ngModel)]="transaccion.valorTransaccion"/>
+          </div>
+          <div class="col-12 text-center" *ngIf="transaccion.valorTransaccion">
+            <button type="submit" class="btn btn-primary mt-3">Crear transaccion</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 mt-2" *ngIf="listadoCuentasOrigen.length == 0">
+        <p class="ms-5 fst-italic">Cliente sin cuentas registradas</p>
+    </div>
+    <div class="col-12 mt-2" *ngIf="listadoCuentasOrigen.length > 0">
+      <div class="row">
+        <div class="col-7">
+          <div class="col-12">
+            <p><strong>Desde donde enviar</strong></p>
+            <hr />
+          </div>
+          <div class="col-12">
+            <div class="col-12 mt-3">
+              <div class="contenedor-listado-cuentas">
+                <div class="row encabezado">
+                  <div class="col">
+                    Numero de cuenta
+                  </div>
+                  <div class="col">
+                    Monto actual
+                  </div>
+                  <div class="col">
+                    Monto maximo permitido
+                  </div>
+                </div>
+                <div class="cada-item" *ngFor="let cuenta of listadoCuentasOrigen">
+                  <div class="row body puntero" (click)="seleccionarCuentaOrigen(cuenta)">
+                    <div class="col">
+                      {{cuenta.numeroCuenta}}
+                    </div>
+                    <div class="col">
+                      {{cuenta.monto}}
+                    </div>
+                    <div class="col">
+                      {{cuenta.montoMaximo}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-5" *ngIf="cuentaOrigenSeleccionada">
+          <div class="col-12">
+            <p><strong>A donde enviar</strong></p>
+            <hr />
+          </div>
+          <div class="col-12">
+            <div class="col-12 mt-3">
+              <div class="contenedor-listado-cuentas">
+                <div class="row encabezado">
+                  <div class="col">
+                    Numero de cuenta
+                  </div>
+                </div>
+                <div class="cada-item" *ngFor="let cuenta of listadoCuentasDestino">
+                  <div (click)="seleccionarCuentaDestino(cuenta)" class="row body puntero"
+                    *ngIf="cuenta.id !== cuentaOrigenSeleccionada.id">
+                    <div class="col">
+                      {{cuenta.numeroCuenta}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

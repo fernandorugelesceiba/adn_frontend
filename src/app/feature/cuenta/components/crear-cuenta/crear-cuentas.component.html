@@ -1,0 +1,37 @@
+<div class="container  mt-5">
+    <div class="row">
+        <div class="col">
+            <form [formGroup]="cuentasFormulario" (ngSubmit)="crearCuenta()">
+                <div class="row">
+                    <div class="col-4">
+                        <label>Número de cuenta</label>
+                        <input validar type="text" id="numeroCuenta" name="numeroCuenta" placeholder="Número de cuenta"
+                            class="form-control" formControlName="numeroCuenta">
+                    </div>
+                    <div class="col-4">
+                        <label>Cliente</label>
+                        <select validar class="form-control" formControlName="idCliente" id="idCliente"
+                            name="idCliente">
+                            <option *ngFor='let item of listadoClientes' [value]="item.id">
+                                {{item.nombre}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label>Monto</label>
+                        <input validar type="text" id="monto" name="monto" type="number" placeholder="Monto"
+                            class="form-control" formControlName="monto">
+                    </div>
+                    <div class="col-4">
+                        <label>Monto maximo</label>
+                        <input validar type="text" id="montoMaximo" name="montoMaximo" type="number"
+                            placeholder="Monto maximo" class="form-control" formControlName="montoMaximo">
+                    </div>
+                    <div class="col-12 mt-3" *ngIf="cuentasFormulario.valid">
+                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

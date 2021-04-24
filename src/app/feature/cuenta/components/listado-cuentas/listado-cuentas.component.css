@@ -1,0 +1,17 @@
+.contenedor-listado-cuentas .row.encabezado .col, .row.body .col{
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: solid 1px #80808054;
+    padding: 6px 0;
+}
+
+.contenedor-listado-cuentas .row.body .col{
+    font-style: italic;
+}
+
+.contenedor-listado-cuentas .cada-item:nth-child(2n+0) > .row {
+    background: linear-gradient(180deg, #ffffff, #40404026);
+  }

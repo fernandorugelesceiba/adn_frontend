@@ -1,0 +1,7 @@
+{
+  "/adn_fernandorugeles/*": {
+    "target": "http://localhost:8033",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

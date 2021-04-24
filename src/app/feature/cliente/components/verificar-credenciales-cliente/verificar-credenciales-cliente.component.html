@@ -1,0 +1,156 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-4" *ngIf="!usuarioEncontrado">
+            <div class="container">
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <h4>Ingresa tus datos de cliente</h4>
+                    </div>
+                    <div class="col-12">
+                        <form [formGroup]="clienteFormulario" (ngSubmit)="consultarPorTipoYNumeroDocumento()">
+                            <div class="col-12 mb-2">
+                                <label>Tipo documento:</label>
+                                <select validar class="form-control" formControlName="tipoDocumento"
+                                    id="idTipoDocumento" name="idTipoDocumento">
+                                    <option selected value="1">CC</option>
+                                    <option value="2">TI</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label>Número documento:</label>
+                                <input validar type="text" id="numeroDocumento" name="numeroDocumento"
+                                    placeholder="Número Documento" class="form-control"
+                                    formControlName="numeroDocumento">
+                            </div>
+                            <div class="col-12 mt-3" *ngIf="clienteFormulario.valid">
+                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" *ngIf="usuarioEncontrado">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h5>Tus datos</h5>
+                    <hr />
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <p><strong>Bienvenid@</strong></p>
+                        </div>
+                        <div class="col-12">
+                            <p><span class="fst-italic">{{cliente.nombre}}</span> {{cliente.apellido}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-12 mt-3">
+                        <button type="button" (click)="consultarCuentasSegunCliente()" class="btn btn-primary me-2">Ver
+                            mis cuentas</button>
+                        <button type="button" (click)="nuevaBusqueda()" class="btn btn-primary">Nueva busqueda</button>
+                    </div>
+                </div>
+                <div class="col-12" *ngIf="cliente.listadoCuentas.length > 0">
+                    <div class="col-12 mt-3">
+                        <div class="contenedor-listado-cuentas">
+                            <div class="row encabezado">
+                                <div class="col">
+                                    Numero de cuenta
+                                </div>
+                                <div class="col">
+                                    Monto actual
+                                </div>
+                                <div class="col">
+                                    Monto maximo permitido
+                                </div>
+                                <div class="col">
+                                    Fecha de creación
+                                </div>
+                                <div class="col">
+                                    Transacciones
+                                </div>
+                            </div>
+                            <div class="cada-item" *ngFor="let cuenta of cliente.listadoCuentas">
+                                <div class="row body">
+                                    <div class="col">
+                                        {{cuenta.numeroCuenta}}
+                                    </div>
+                                    <div class="col">
+                                        {{cuenta.monto}}
+                                    </div>
+                                    <div class="col">
+                                        {{cuenta.montoMaximo}}
+                                    </div>
+                                    <div class="col">
+                                        {{cuenta.fechaCreacion}}
+                                    </div>
+                                    <div class="col">
+                                        <button type="button" (click)="consultarTrancaccion(cuenta)"
+                                            class="btn btn-info">
+                                            <i class="fas fa-history"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" *ngIf="listadoDeTransacciones.length > 0">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h5>Transacciones en relacion a la cuenta selccionada</h5>
+                    <hr />
+                </div>
+                <div class="col-12">
+                    <p><strong>A continuacion un historial de transacciones donde tu cuenta esta involucrada</strong>
+                    </p>
+                    <br />
+                </div>
+                <div class="contenedor-listado-cuentas">
+                    <div class="row encabezado">
+                        <div class="col">
+                            Desde
+                        </div>
+                        <div class="col">
+                            Hacia
+                        </div>
+                        <div class="col">
+                            Monto de transaccion
+                        </div>
+                        <div class="col">
+                            Porcentaje descontado
+                        </div>
+                        <div class="col">
+                            Fecha creacion
+                        </div>
+                    </div>
+                    <div class="cada-item" *ngFor="let transaccion of listadoDeTransacciones">
+                        <div class="row body">
+                            <div class="col">
+                                {{transaccion.numeroCuentaOrigen}}
+                            </div>
+                            <div class="col">
+                                {{transaccion.numeroCuentaDestino}}
+                            </div>
+                            <div class="col">
+                                {{transaccion.valorTransaccion}}
+                            </div>
+                            <div class="col">
+                                {{transaccion.montoMaximo}}
+                            </div>
+                            <div class="col">
+                                {{transaccion.fechaCreacion}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
