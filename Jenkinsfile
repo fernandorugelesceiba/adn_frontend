@@ -26,8 +26,8 @@ pipeline {
 					gitTool: 'Default', 
 					submoduleCfg: [], 
 					userRemoteConfigs: [[
-						credentialsId: 'GITHub_rikardo', 
-						url:'https://github.com/rikardomorales/ADNCEIBA-FRONTEND'
+						credentialsId: 'GitHub_fernandorugelesceiba', 
+						url:'https://github.com/fernandorugelesceiba/adn_frontend.git'
 					]]
 			    ])
             }
@@ -76,7 +76,7 @@ pipeline {
         }
         failure {
             echo 'This will run only if failed'
-            mail(to: 'ricardo.morales@ceiba.com.co', subject: "Failed Pipeline:${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}")
+            mail(to: 'fernando.rugeles@ceiba.com.co', subject: "Failed Pipeline:${currentBuild.fullDisplayName}", body: "Something is wrong with ${env.BUILD_URL}")
         }
     }
 }
