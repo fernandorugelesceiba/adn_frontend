@@ -7,7 +7,7 @@ import { ClienteService } from '@cliente/shared/service/cliente.service';
 import { HttpService } from '@core/services/http.service';
 import { CuentaService } from '@cuenta/shared/service/cuenta.service';
 import { Cliente } from '@cliente/shared/model/cliente';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -58,6 +58,29 @@ describe('ListadoCuentasComponent', () => {
             // assert
             expect(component.listadoClientes.length).toBeGreaterThan(0);
         });
+
+        it('no debe retornar nada', () => {
+            // arrange
+            const listaClientes = [];
+            spyOn(clienteService, 'obtenerListadoClientes').and.returnValue(of(listaClientes));
+
+            // act
+            component.obtenerListadoClientes();
+
+            // assert
+            expect(component.listadoClientes.length).toBe(0);
+        });
+
+        it('no debe retornar un error', () => {
+            // arrange
+            spyOn(clienteService, 'obtenerListadoClientes').and.returnValue(throwError({ error: 'error' }));
+
+            // act
+            component.obtenerListadoClientes();
+
+            // assert
+            expect(component.listadoClientes.length).toBe(0);
+        });
     });
 
     describe('cuando el metodo crearCuenta es llamado', () => {
@@ -69,6 +92,40 @@ describe('ListadoCuentasComponent', () => {
             component.cuentasFormulario.controls.monto.setValue(cuenta.monto);
             component.cuentasFormulario.controls.montoMaximo.setValue(cuenta.montoMaximo);
             spyOn(cuentaService, 'crear').and.returnValue(of(true));
+            component.notificacion = notificacionService;
+
+            // act
+            component.crearCuenta();
+
+            // assert
+            expect(component.notificacion).toBeTruthy();
+        });
+
+        it('no debe crear una cuenta', () => {
+            // arrange
+            const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+            component.cuentasFormulario.controls.numeroCuenta.setValue(cuenta.numeroCuenta);
+            component.cuentasFormulario.controls.idCliente.setValue(cuenta.idCliente);
+            component.cuentasFormulario.controls.monto.setValue(cuenta.monto);
+            component.cuentasFormulario.controls.montoMaximo.setValue(cuenta.montoMaximo);
+            spyOn(cuentaService, 'crear').and.returnValue(of(false));
+            component.notificacion = notificacionService;
+
+            // act
+            component.crearCuenta();
+
+            // assert
+            expect(component.notificacion).toBeTruthy();
+        });
+
+        it('debe retornar un error', () => {
+            // arrange
+            const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+            component.cuentasFormulario.controls.numeroCuenta.setValue(cuenta.numeroCuenta);
+            component.cuentasFormulario.controls.idCliente.setValue(cuenta.idCliente);
+            component.cuentasFormulario.controls.monto.setValue(cuenta.monto);
+            component.cuentasFormulario.controls.montoMaximo.setValue(cuenta.montoMaximo);
+            spyOn(cuentaService, 'crear').and.returnValue(throwError({ error: 'error' }));
             component.notificacion = notificacionService;
 
             // act
