@@ -63,7 +63,14 @@ export class CuentaService {
       fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 
-    const formatoFecha = [fechaObjeto.anio,fechaObjeto.mes,fechaObjeto.dia].join('-') + ' ' + [fechaObjeto.hora,fechaObjeto.minuto,fechaObjeto.segundos].join(':');
+    const formatoFecha = [
+      fechaObjeto.anio,
+      fechaObjeto.mes,
+      fechaObjeto.dia
+    ].join('-') + ' ' + [fechaObjeto.hora,
+        fechaObjeto.minuto,
+        fechaObjeto.segundos
+      ].join(':');
         
     const objeto: object = {
       numeroCuenta: cuenta.numeroCuenta.toString(),

@@ -1,4 +1,4 @@
-import { Transaccion } from "src/app/feature/transaccion/shared/model/transaccion";
+import { Transaccion } from 'src/app/feature/transaccion/shared/model/transaccion';
 
 export class Cuenta {
     id;
@@ -11,8 +11,8 @@ export class Cuenta {
 
     constructor(id: number, numeroCuenta: string,
          montoMaximo: number, monto: number, 
-         idCliente: number, fechaCreacion: Date) {
-
+         idCliente: number, fechaCreacion: Date)
+    {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
         this.montoMaximo = montoMaximo;
@@ -24,11 +24,13 @@ export class Cuenta {
 
     construirListadoTransaccion(lista: Array<Transaccion>) {
         this.listaTransacciones = [];
-        for (let transaccion of lista) {
+        for (const transaccion of lista) {
             this.listaTransacciones.push(new Transaccion(
                 transaccion.id, transaccion.idCuentaOrigen,
                 transaccion.idCuentaDestino, transaccion.valorTransaccion, 
-                transaccion.porcentajeDescuento, transaccion.fechaCreacion, transaccion.estado,transaccion.numeroCuentaOrigen,transaccion.numeroCuentaDestino
+                transaccion.porcentajeDescuento, transaccion.fechaCreacion,
+                transaccion.estado,transaccion.numeroCuentaOrigen,
+                transaccion.numeroCuentaDestino
             ));
         }
     }

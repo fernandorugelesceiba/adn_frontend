@@ -11,7 +11,7 @@ import { HttpResponse } from '@angular/common/http';
 describe('CuentaService', () => {
   let httpMock: HttpTestingController;
   let service: CuentaService;
-  const URL_CUENTAS = environment.endpoint+"/cuentas/";
+  const URL_CUENTAS = environment.endpoint+'/cuentas/';
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
