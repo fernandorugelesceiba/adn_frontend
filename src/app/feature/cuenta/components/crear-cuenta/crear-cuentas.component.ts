@@ -21,9 +21,11 @@ export class CrearCuentasComponent implements OnInit {
   public listadoCuentas: Array<Cuenta>;
   public cuentasFormulario: FormGroup;
   public listadoClientes: Array<Cliente>;
+  public notificacion;
 
-  constructor(protected cuentaService: CuentaService, protected clienteService: ClienteService, private toastr: ToastrService) {
+  constructor(protected cuentaService: CuentaService, protected clienteService: ClienteService, public toastr: ToastrService) {
     this.listadoClientes = [];
+    this.notificacion = toastr;
   }
 
   ngOnInit() {
@@ -36,22 +38,22 @@ export class CrearCuentasComponent implements OnInit {
       if (res.length > 0) {
         this.listadoClientes = res;
       } else {
-        this.toastr.warning(this.NO_SE_ECONTRARON_RESULTADOS);
+        this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.toastr.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err));
     });
   }
 
   crearCuenta() {
     this.cuentaService.crear(this.cuentasFormulario.value).subscribe(res => {
       if (res) {
-        this.toastr.warning(this.CUENTA_CREADA);
+        this.notificacion.warning(this.CUENTA_CREADA);
       } else {
-        this.toastr.warning(this.CUENTA_NO_CREADA);
+        this.notificacion.warning(this.CUENTA_NO_CREADA);
       }
     }, err => {
-      this.toastr.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err));
     });
   }
 
