@@ -55,27 +55,27 @@ describe('CrearTransaccionComponent', () => {
 
   describe('cuando el metodo obtenerListadoClientes es llamado', () => {
     it('no debe retornar nada', () => {
-      //arrange
-      const listaClientes = []
+      // arrange
+      const listaClientes = [];
       spyOn(clienteService, 'obtenerListadoClientes').and.returnValue(of(listaClientes));
       component.notificacion = notificacionService;
 
-      //act
+      // act
       component.obtenerListadoClientes();
 
-      //assert
+      // assert
       expect(component.listadoClientes.length).toBe(0);
     });
 
     it('debe retornar un cliente', () => {
-      //arrange
-      const listaClientes = [new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1)]
+      // arrange
+      const listaClientes = [new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1)];
       spyOn(clienteService, 'obtenerListadoClientes').and.returnValue(of(listaClientes));
-      
-      //act
+
+      // act
       component.obtenerListadoClientes();
 
-      //assert
+      // assert
       expect(component.listadoClientes.length).toBeGreaterThan(0);
     });
   });
@@ -83,80 +83,80 @@ describe('CrearTransaccionComponent', () => {
 
   describe('cuando el metodo consultarCuentas es llamado', () => {
     it('no debe retornar nada', () => {
-      //arrange
-      const listadoCuentas  = []
+      // arrange
+      const listadoCuentas  = [];
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(of(listadoCuentas));
       
-      //act
+      // act
       component.notificacion = notificacionService;
       component.consultarCuentas();
 
-      //assert
+      // assert
       expect(component.listadoCuentas.length).toBe(0);
     });
 
     it('debe retornar una lista de cuentas', () => {
-      //arrange
-      const listadoCuentas = [new Cuenta(1,'1234567890',1200000, 500000,1, new Date())];
+      // arrange
+      const listadoCuentas = [new Cuenta(1,'1234567890',1200000,500000,1,new Date())];
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(of(listadoCuentas));
       
-      //act
+      // act
       component.consultarCuentas();
 
-      //assert
+      // assert
       expect(component.listadoCuentas.length).toBeGreaterThan(0);
     });
 
     it('debe espera un error', () => {
-      //arrange
+      // arrange
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(throwError({ error: 'error' }));
       
-      //act
+      // act
       component.consultarCuentas();
 
-      //assert
+      // assert
       expect(component.listadoCuentas.length).toBe(0);
     });
   });
 
   describe('cuando el metodo seleccionarCuentaOrigen es llamado', () => {
     it('debe indefinir la variable cuentaDestinoSeleccionada y asignar valor a la variable cuentaOrigenSeleccionada ', () => {
-      //arrange
-      const cuenta  = new Cuenta(1,'1234567890',1200000, 500000,1, new Date())
+      // arrange
+      const cuenta  = new Cuenta(1,'1234567890',1200000,500000,1,new Date());
 
-      //act
+      // act
       component.seleccionarCuentaOrigen(cuenta);
 
-      //assert
+      // assert
       expect(component.cuentaDestinoSeleccionada).toBeUndefined();
       expect(component.cuentaOrigenSeleccionada).toBe(cuenta);
     });
 
     it('debe asignar valor a la variable cuentaDestinoSeleccionada', () => {
-      //arrange
-      const cuenta  = new Cuenta(1,'1234567890',1200000, 500000,1, new Date())
+      // arrange
+      const cuenta  = new Cuenta(1,'1234567890',1200000,500000,1,new Date());
       component.cuentaOrigenSeleccionada = cuenta;
 
-      //act
+      // act
       component.seleccionarCuentaDestino(cuenta);
 
-      //assert
+      // assert
       expect(component.cuentaDestinoSeleccionada).toBe(cuenta);
     });
   });
 
   describe('cuando el metodo crearTransaccion es llamado', () => {
     it('debe crear una transaccion', () => {
-      //arrange
-      const transaccion = new Transaccion(1,1, 2,100, 0.5, new Date(), 1, "","");
+      // arrange
+      const transaccion = new Transaccion(1,1,2,100,0.5,new Date(),1,'','');
       component.transaccion = transaccion;
       component.notificacion = notificacionService;
       spyOn(transaccionService, 'crear').and.returnValue(throwError({ error: 'error' }));
 
-      //act
+      // act
       component.crearTransaccion();
 
-      //assert
+      // assert
       expect(component.cuentaDestinoSeleccionada).toBeUndefined();
     });
   });
