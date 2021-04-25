@@ -119,7 +119,7 @@ export class CrearTransaccionComponent implements OnInit {
     this.limpiarListas();
     for (const cuenta of this.listadoCuentas) {
       // armar cuentas de destino y origen
-      if (cuenta.idCliente === this.idClienteSeleccionado) {
+      if (`${cuenta.idCliente}` ===  `${this.idClienteSeleccionado}`) {
         this.listadoCuentasOrigen.push(cuenta);
       }
       this.listadoCuentasDestino.push(cuenta);

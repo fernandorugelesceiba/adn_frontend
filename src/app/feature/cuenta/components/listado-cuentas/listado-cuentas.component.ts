@@ -32,7 +32,7 @@ export class ListadoCuentasComponent implements OnInit {
     this.clienteService.obtenerListadoClientes().subscribe(res => {
       if (res.length > 0) {
           for(const cliente of res){
-            this.mapaClientes.set(cliente.id, `${cliente.nombre.toLowerCase} ${cliente.apellido.toLowerCase}`);
+            this.mapaClientes.set(cliente.id, `${cliente.nombre.toLowerCase()} ${cliente.apellido.toLowerCase()}`);
           }
       }
     }, err => {
@@ -55,7 +55,7 @@ export class ListadoCuentasComponent implements OnInit {
 
   eliminar(id: number, ind: number) {
     this.cuentaService.eliminar(id).subscribe(res => {
-      if (res) {
+      if (!res) {
         const nuevaLista = [];
         this.listadoCuentas.forEach((cuenta, index) => {
           if(index !== ind){

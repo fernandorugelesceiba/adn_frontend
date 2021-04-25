@@ -14,7 +14,6 @@ import { CuentaModule } from '@cuenta/cuenta.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
-
 @NgModule({
   declarations: [
     AppComponent,

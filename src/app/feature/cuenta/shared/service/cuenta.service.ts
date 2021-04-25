@@ -50,16 +50,16 @@ export class CuentaService {
       minuto: `${fecha.getMinutes()}`,
       segundos: `${fecha.getSeconds()}`
     };
-    if (fechaObjeto.mes.length >= 2) {
+    if (fechaObjeto.mes.length < 2) {
       fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    if (fechaObjeto.hora.length >= 2) {
+    if (fechaObjeto.hora.length < 2) {
       fechaObjeto.hora = `0${fechaObjeto.hora}`;
     }
-    if (fechaObjeto.minuto.length >= 2) {
+    if (fechaObjeto.minuto.length < 2) {
       fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
     }
-    if (fechaObjeto.segundos.length >= 2) {
+    if (fechaObjeto.segundos.length < 2) {
       fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 

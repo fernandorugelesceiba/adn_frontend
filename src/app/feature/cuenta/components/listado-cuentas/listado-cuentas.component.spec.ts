@@ -12,6 +12,7 @@ import { of } from 'rxjs';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ListadoCuentasComponent', () => {
   let component: ListadoCuentasComponent;
@@ -28,6 +29,7 @@ describe('ListadoCuentasComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
       providers: [ClienteService, CuentaService, HttpService, ToastrService]

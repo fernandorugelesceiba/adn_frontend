@@ -14,6 +14,7 @@ import { Cliente } from '@cliente/shared/model/cliente';
 import { of, throwError } from 'rxjs';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
 import { Transaccion } from '@transaccion/shared/model/transaccion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CrearTransaccionComponent', () => {
   let component: CrearTransaccionComponent;
@@ -32,6 +33,7 @@ describe('CrearTransaccionComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
       providers: [HttpService, TransaccionService, ClienteService, CuentaService, ToastrService]

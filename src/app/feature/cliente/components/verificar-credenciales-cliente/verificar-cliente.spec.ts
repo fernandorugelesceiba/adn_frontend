@@ -12,6 +12,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Cliente } from '@cliente/shared/model/cliente';
 import { of } from 'rxjs';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('VerificarCredencialesClienteComponent', () => {
   let component: VerificarCredencialesClienteComponent;
@@ -28,6 +29,7 @@ describe('VerificarCredencialesClienteComponent', () => {
         RouterTestingModule,
         ReactiveFormsModule,
         FormsModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
       providers: [ClienteService, HttpService, ToastrService]
