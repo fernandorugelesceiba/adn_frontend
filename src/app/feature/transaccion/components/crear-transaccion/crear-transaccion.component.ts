@@ -14,10 +14,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./crear-transaccion.component.css']
 })
 export class CrearTransaccionComponent implements OnInit {
-  private NO_SE_ECONTRARON_RESULTADOS = "No se encontraron resultado";
-  private BUSQUEDA_REALIZADA_CON_EXITO = "Busqueda realizada con exito";
-  private TRANSACCION_CREADA = "La transacción fue creada con exito";
-  private TRANSACCION_NO_CREADA = "La transacción no pudo ser creada";
+  private NO_SE_ECONTRARON_RESULTADOS = 'No se encontraron resultado';
+  private BUSQUEDA_REALIZADA_CON_EXITO = 'Busqueda realizada con exito';
+  private TRANSACCION_CREADA = 'La transacción fue creada con exito';
+  private TRANSACCION_NO_CREADA = 'La transacción no pudo ser creada';
 
   public listadoClientes: Array<Cliente>;
   public listadoCuentas: Array<Cuenta>;
@@ -30,7 +30,11 @@ export class CrearTransaccionComponent implements OnInit {
   public transaccion: Transaccion;
   public notificacion: ToastrService;
 
-  constructor(protected transaccionService: TransaccionService,protected clienteService: ClienteService, protected cuentaService: CuentaService, public toastr: ToastrService) {
+  constructor(protected transaccionService: TransaccionService,
+    protected clienteService: ClienteService, 
+    protected cuentaService: CuentaService, 
+    public toastr: ToastrService) 
+  {
     this.listadoClientes = [];
     this.listadoCuentasOrigen = [];
     this.listadoCuentasDestino = [];
@@ -45,15 +49,12 @@ export class CrearTransaccionComponent implements OnInit {
 
   obtenerListadoClientes() {
     this.clienteService.obtenerListadoClientes().subscribe(res => {
-      debugger;
       if (res.length > 0) {
         this.listadoClientes = res;
       } else {
-        debugger;
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      debugger;
       this.notificacion.error(JSON.stringify(err));
     });
   }
@@ -110,13 +111,13 @@ export class CrearTransaccionComponent implements OnInit {
       1,this.cuentaOrigenSeleccionada.id,
       this.cuentaDestinoSeleccionada.id, 
       this.transaccionFormulario.value.montoTransaccion, 0.5,
-      new Date(), 1, "",""
+      new Date(), 1, '',''
     );
   }
 
   private reconstruirListadoCuentas() {
     this.limpiarListas();
-    for (let cuenta of this.listadoCuentas) {
+    for (const cuenta of this.listadoCuentas) {
       //armar cuentas de destino y origen
       if (cuenta.idCliente == this.idClienteSeleccionado) {
         this.listadoCuentasOrigen.push(cuenta);

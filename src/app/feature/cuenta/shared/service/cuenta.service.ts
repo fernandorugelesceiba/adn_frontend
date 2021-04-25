@@ -11,12 +11,12 @@ export class CuentaService {
   private URL_CUENTAS: string;
 
   constructor(protected http: HttpService) {
-    this.URL_CUENTAS_POR_CLIENTE = "/cuentas";
-    this.URL_CUENTAS = "/cuentas/";
+    this.URL_CUENTAS_POR_CLIENTE = '/cuentas';
+    this.URL_CUENTAS = '/cuentas/';
   }
 
   public obtenerListaCuentaSegunCliente(cuenta: Cuenta) {
-    let parametros: HttpParams = new HttpParams()
+    const parametros: HttpParams = new HttpParams()
       .set('idCliente', cuenta.id.toString());
 
     return this.http.doGetParameters<Cuenta[]>(`${environment.endpoint}${this.URL_CUENTAS_POR_CLIENTE}`,
@@ -35,44 +35,44 @@ export class CuentaService {
   }
 
   public crear(cuenta: Cuenta){
-    let objeto = this.armarNuevoObjeto(cuenta);
+    const objeto = this.armarNuevoObjeto(cuenta);
     return this.http.doPost<any, boolean>(`${environment.endpoint}${this.URL_CUENTAS}`, objeto,
       this.http.optsName('Crear cuenta'));
   }
 
   private armarNuevoObjeto(cuenta: Cuenta){
-    let fecha = new Date();
-    let anio = fecha.getFullYear();
-    let mes = `${fecha.getMonth()+1}`;
-    if(parseInt(mes) < 10){
-      mes = `0${mes}`;
+    const fecha = new Date();
+    const fechaObjeto = {
+      anio:fecha.getFullYear(),
+      mes:`${fecha.getMonth()+1}`,
+      dia:fecha.getDate(),
+      hora:`${fecha.getHours()}`,
+      minuto:`${fecha.getMinutes()}`,
+      segundos:`${fecha.getSeconds()}`
+    } 
+    if(parseInt(fechaObjeto.mes) < 10){
+      fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    let dia = fecha.getDate();
-
-    let hora = `${fecha.getHours()}`;
-    if(parseInt(hora) < 10){
-      hora = `0${hora}`;
+    if(parseInt(fechaObjeto.hora) < 10){
+      fechaObjeto.hora = `0${fechaObjeto.hora}`;
+    }
+    if(parseInt(fechaObjeto.minuto) < 10){
+      fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
+    }
+    if(parseInt(fechaObjeto.segundos) < 10){
+      fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 
-    let minuto = `${fecha.getMinutes()}`;
-    if(parseInt(minuto) < 10){
-      minuto = `0${minuto}`;
-    }
-
-    let segundos = `${fecha.getSeconds()}`;
-    if(parseInt(segundos) < 10){
-      segundos = `0${segundos}`;
-    }
-
-    let formatoFecha = [anio,mes,dia].join('-') + ' ' + [hora, minuto, segundos].join(':');
+    const formatoFecha = [fechaObjeto.anio,fechaObjeto.mes,fechaObjeto.dia].join('-') + ' ' + [fechaObjeto.hora,fechaObjeto.minuto,fechaObjeto.segundos].join(':');
         
-    let objeto: Object = {
+    const objeto: object = {
       numeroCuenta: cuenta.numeroCuenta.toString(),
       montoMaximo: cuenta.montoMaximo.toString(),
       monto: cuenta.monto.toString(),
       idCliente: cuenta.idCliente.toString(),
       fechaCreacion: formatoFecha
-    }
+    };
+    
     return objeto;
   }
 }

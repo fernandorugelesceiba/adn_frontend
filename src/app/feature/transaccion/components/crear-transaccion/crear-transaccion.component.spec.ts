@@ -84,9 +84,9 @@ describe('CrearTransaccionComponent', () => {
   describe('cuando el metodo consultarCuentas es llamado', () => {
     it('no debe retornar nada', () => {
       // arrange
-      const listadoCuentas  = [];
+      const listadoCuentas = [];
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(of(listadoCuentas));
-      
+
       // act
       component.notificacion = notificacionService;
       component.consultarCuentas();
@@ -97,9 +97,9 @@ describe('CrearTransaccionComponent', () => {
 
     it('debe retornar una lista de cuentas', () => {
       // arrange
-      const listadoCuentas = [new Cuenta(1,'1234567890',1200000,500000,1,new Date())];
+      const listadoCuentas = [new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date())];
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(of(listadoCuentas));
-      
+
       // act
       component.consultarCuentas();
 
@@ -110,7 +110,7 @@ describe('CrearTransaccionComponent', () => {
     it('debe espera un error', () => {
       // arrange
       spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(throwError({ error: 'error' }));
-      
+
       // act
       component.consultarCuentas();
 
@@ -122,7 +122,7 @@ describe('CrearTransaccionComponent', () => {
   describe('cuando el metodo seleccionarCuentaOrigen es llamado', () => {
     it('debe indefinir la variable cuentaDestinoSeleccionada y asignar valor a la variable cuentaOrigenSeleccionada ', () => {
       // arrange
-      const cuenta  = new Cuenta(1,'1234567890',1200000,500000,1,new Date());
+      const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
 
       // act
       component.seleccionarCuentaOrigen(cuenta);
@@ -134,7 +134,7 @@ describe('CrearTransaccionComponent', () => {
 
     it('debe asignar valor a la variable cuentaDestinoSeleccionada', () => {
       // arrange
-      const cuenta  = new Cuenta(1,'1234567890',1200000,500000,1,new Date());
+      const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
       component.cuentaOrigenSeleccionada = cuenta;
 
       // act
@@ -148,7 +148,7 @@ describe('CrearTransaccionComponent', () => {
   describe('cuando el metodo crearTransaccion es llamado', () => {
     it('debe crear una transaccion', () => {
       // arrange
-      const transaccion = new Transaccion(1,1,2,100,0.5,new Date(),1,'','');
+      const transaccion = new Transaccion(1, 1, 2, 100, 0.5, new Date(), 1, '', '');
       component.transaccion = transaccion;
       component.notificacion = notificacionService;
       spyOn(transaccionService, 'crear').and.returnValue(throwError({ error: 'error' }));

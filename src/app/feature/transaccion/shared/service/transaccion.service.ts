@@ -19,31 +19,31 @@ export class TransaccionService {
   }
 
   private armarNuevoObjeto(transaccion: Transaccion){
-    let anio = transaccion.fechaCreacion.getFullYear();
-    let mes = `${transaccion.fechaCreacion.getMonth()+1}`;
-    if(parseInt(mes) < 10){
-      mes = `0${mes}`;
+    const fecha = transaccion.fechaCreacion;
+    const fechaObjeto = {
+      anio:fecha.getFullYear(),
+      mes:`${fecha.getMonth()+1}`,
+      dia:fecha.getDate(),
+      hora:`${fecha.getHours()}`,
+      minuto:`${fecha.getMinutes()}`,
+      segundos:`${fecha.getSeconds()}`
+    } 
+    if(parseInt(fechaObjeto.mes) < 10){
+      fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    let dia = transaccion.fechaCreacion.getDate();
-
-    let hora = `${transaccion.fechaCreacion.getHours()}`;
-    if(parseInt(hora) < 10){
-      hora = `0${hora}`;
+    if(parseInt(fechaObjeto.hora) < 10){
+      fechaObjeto.hora = `0${fechaObjeto.hora}`;
+    }
+    if(parseInt(fechaObjeto.minuto) < 10){
+      fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
+    }
+    if(parseInt(fechaObjeto.segundos) < 10){
+      fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 
-    let minuto = `${transaccion.fechaCreacion.getMinutes()}`;
-    if(parseInt(minuto) < 10){
-      minuto = `0${minuto}`;
-    }
+    const formatoFecha = [fechaObjeto.anio,fechaObjeto.mes,fechaObjeto.dia].join('-') + ' ' + [fechaObjeto.hora,fechaObjeto.minuto,fechaObjeto.segundos].join(':');
 
-    let segundos = `${transaccion.fechaCreacion.getSeconds()}`;
-    if(parseInt(segundos) < 10){
-      segundos = `0${segundos}`;
-    }
-
-    let formatoFecha = [anio,mes,dia].join('-') + ' ' + [hora, minuto, segundos].join(':');
-
-    let objeto: Object = {
+    let objeto: object = {
       id: transaccion.id.toString(),
       idCuentaOrigen: transaccion.idCuentaOrigen.toString(),
       idCuentaDestino: transaccion.idCuentaDestino.toString(),
