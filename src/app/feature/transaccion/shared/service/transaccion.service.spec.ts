@@ -11,7 +11,7 @@ import { ClienteService } from '@cliente/shared/service/cliente.service';
 describe('TransaccionService', () => {
   let httpMock: HttpTestingController;
   let service: TransaccionService;
-  const URL_TRANSACCION = environment.endpoint+"/transacciones";
+  const URL_TRANSACCION = environment.endpoint+'/transacciones';
 
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
