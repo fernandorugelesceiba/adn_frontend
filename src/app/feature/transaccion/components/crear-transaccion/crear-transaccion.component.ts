@@ -30,11 +30,11 @@ export class CrearTransaccionComponent implements OnInit {
   public transaccion: Transaccion;
   public notificacion: ToastrService;
 
-  constructor(protected transaccionService: TransaccionService,
-    protected clienteService: ClienteService, 
-    protected cuentaService: CuentaService, 
-    public toastr: ToastrService) 
-  {
+  constructor(
+    protected transaccionService: TransaccionService,
+    protected clienteService: ClienteService,
+    protected cuentaService: CuentaService,
+    public toastr: ToastrService) {
     this.listadoClientes = [];
     this.listadoCuentasOrigen = [];
     this.listadoCuentasDestino = [];
@@ -83,7 +83,7 @@ export class CrearTransaccionComponent implements OnInit {
     this.construirFormularioTransaccion();
   }
 
-  crearTransaccion(){
+  crearTransaccion() {
     this.transaccionService.crear(this.transaccion).subscribe(res => {
       if (res) {
         this.notificacion.info(this.TRANSACCION_CREADA);
@@ -108,25 +108,25 @@ export class CrearTransaccionComponent implements OnInit {
     });
 
     this.transaccion = new Transaccion(
-      1,this.cuentaOrigenSeleccionada.id,
-      this.cuentaDestinoSeleccionada.id, 
+      1, this.cuentaOrigenSeleccionada.id,
+      this.cuentaDestinoSeleccionada.id,
       this.transaccionFormulario.value.montoTransaccion, 0.5,
-      new Date(), 1, '',''
+      new Date(), 1, '', ''
     );
   }
 
   private reconstruirListadoCuentas() {
     this.limpiarListas();
     for (const cuenta of this.listadoCuentas) {
-      //armar cuentas de destino y origen
-      if (cuenta.idCliente == this.idClienteSeleccionado) {
+      // armar cuentas de destino y origen
+      if (cuenta.idCliente === this.idClienteSeleccionado) {
         this.listadoCuentasOrigen.push(cuenta);
       }
       this.listadoCuentasDestino.push(cuenta);
     }
   }
 
-  private limpiarListas(){
+  private limpiarListas() {
     this.listadoCuentasDestino = [];
     this.listadoCuentasOrigen = [];
     this.cuentaOrigenSeleccionada = undefined;

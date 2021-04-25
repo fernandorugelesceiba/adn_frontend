@@ -99,5 +99,4 @@ describe('VerificarCredencialesClienteComponent', () => {
       expect(component.cliente.listadoCuentas.length).toBeGreaterThan(0);
     });
   });
-  
 });

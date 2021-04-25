@@ -11,10 +11,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ListadoCuentasComponent implements OnInit {
   public listadoCuentas: Array<Cuenta>;
-  private NO_SE_ECONTRARON_RESULTADOS = "No se encontraron resultado";
-  private BUSQUEDA_REALIZADA_CON_EXITO = "Busqueda realizada con exito";
-  private ERROR_EN_PROCEO = "Error en el proceso";
-  private REGISTRO_ELIMINADO_SATISFACTORIAMENTE = "Registro eliminado satisfactoriamente";
+  private NO_SE_ECONTRARON_RESULTADOS = 'No se encontraron resultado';
+  private BUSQUEDA_REALIZADA_CON_EXITO = 'Busqueda realizada con exito';
+  private ERROR_EN_PROCEO = 'Error en el proceso';
+  private REGISTRO_ELIMINADO_SATISFACTORIAMENTE = 'Registro eliminado satisfactoriamente';
   public mapaClientes = new Map();
   public notificacion: ToastrService;
 
@@ -31,8 +31,8 @@ export class ListadoCuentasComponent implements OnInit {
   obtenerListadoClientes() {
     this.clienteService.obtenerListadoClientes().subscribe(res => {
       if (res.length > 0) {
-          for(let cliente of res){
-            this.mapaClientes.set(cliente.id, `${cliente.nombre} ${cliente.apellido}`);
+          for(const cliente of res){
+            this.mapaClientes.set(cliente.id, `${cliente.nombre.toLowerCase} ${cliente.apellido.toLowerCase}`);
           }
       }
     }, err => {
@@ -56,7 +56,13 @@ export class ListadoCuentasComponent implements OnInit {
   eliminar(id: number, ind: number) {
     this.cuentaService.eliminar(id).subscribe(res => {
       if (res) {
-        this.listadoCuentas = this.listadoCuentas.filter((_cuenta, index) => index !== ind);
+        const nuevaLista = [];
+        this.listadoCuentas.forEach((cuenta, index) => {
+          if(index !== ind){
+            nuevaLista.push(cuenta);
+          }
+        });
+        this.listadoCuentas = nuevaLista;
         this.notificacion.info(this.REGISTRO_ELIMINADO_SATISFACTORIAMENTE);
       } else {
         this.notificacion.warning(this.ERROR_EN_PROCEO);

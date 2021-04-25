@@ -15,14 +15,14 @@ export class ClienteService {
   private URL_LISTADO_CLIENTES: string;
 
   constructor(protected http: HttpService) {
-    this.URL_CLIENTE_POR_TIPO_NUMERO_DOCUMENTO = "/clientes/id?";
-    this.URL_CUENTAS_SEGUN_CLIENTE = "/cuentas/id?";
-    this.URL_TRANSACCIONES_SEGUN_CUENTA = "/transacciones/transaccion?";
-    this.URL_LISTADO_CLIENTES = "/clientes";
+    this.URL_CLIENTE_POR_TIPO_NUMERO_DOCUMENTO = '/clientes/id?';
+    this.URL_CUENTAS_SEGUN_CLIENTE = '/cuentas/id?';
+    this.URL_TRANSACCIONES_SEGUN_CUENTA = '/transacciones/transaccion?';
+    this.URL_LISTADO_CLIENTES = '/clientes';
   }
 
   public verificarClienteSegunNumeroYTipoDocumento(cliente: Cliente) {
-    let parametros: HttpParams = new HttpParams()
+    const parametros: HttpParams = new HttpParams()
       .set('tipoDocumento', cliente.tipoDocumento.toString())
       .set('numeroDocumento', cliente.numeroDocumento);
 
@@ -33,7 +33,7 @@ export class ClienteService {
   }
 
   public obtenerListaCuentaSegunCliente(cliente: Cliente) {
-    let parametros: HttpParams = new HttpParams()
+    const parametros: HttpParams = new HttpParams()
       .set('idCliente', cliente.id.toString());
 
     return this.http.doGetParameters<Cuenta[]>(`${environment.endpoint}${this.URL_CUENTAS_SEGUN_CLIENTE}`,
@@ -42,7 +42,7 @@ export class ClienteService {
   }
 
   public obtenerListaTransaccionPorCuenta(idCuenta: number) {
-    let parametros: HttpParams = new HttpParams()
+    const parametros: HttpParams = new HttpParams()
       .set('idCuenta', idCuenta.toString());
 
     return this.http.doGetParameters<Transaccion[]>(`${environment.endpoint}${this.URL_TRANSACCIONES_SEGUN_CUENTA}`,

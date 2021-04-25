@@ -34,32 +34,32 @@ export class CuentaService {
       this.http.optsName('Eliminar Cuenta'));
   }
 
-  public crear(cuenta: Cuenta){
+  public crear(cuenta: Cuenta) {
     const objeto = this.armarNuevoObjeto(cuenta);
     return this.http.doPost<any, boolean>(`${environment.endpoint}${this.URL_CUENTAS}`, objeto,
       this.http.optsName('Crear cuenta'));
   }
 
-  private armarNuevoObjeto(cuenta: Cuenta){
+  private armarNuevoObjeto(cuenta: Cuenta) {
     const fecha = new Date();
     const fechaObjeto = {
-      anio:fecha.getFullYear(),
-      mes:`${fecha.getMonth()+1}`,
-      dia:fecha.getDate(),
-      hora:`${fecha.getHours()}`,
-      minuto:`${fecha.getMinutes()}`,
-      segundos:`${fecha.getSeconds()}`
-    } 
-    if(parseInt(fechaObjeto.mes) < 10){
+      anio: fecha.getFullYear(),
+      mes: `${fecha.getMonth() + 1}`,
+      dia: fecha.getDate(),
+      hora: `${fecha.getHours()}`,
+      minuto: `${fecha.getMinutes()}`,
+      segundos: `${fecha.getSeconds()}`
+    };
+    if (fechaObjeto.mes.length >= 2) {
       fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    if(parseInt(fechaObjeto.hora) < 10){
+    if (fechaObjeto.hora.length >= 2) {
       fechaObjeto.hora = `0${fechaObjeto.hora}`;
     }
-    if(parseInt(fechaObjeto.minuto) < 10){
+    if (fechaObjeto.minuto.length >= 2) {
       fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
     }
-    if(parseInt(fechaObjeto.segundos) < 10){
+    if (fechaObjeto.segundos.length >= 2) {
       fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 
@@ -67,11 +67,12 @@ export class CuentaService {
       fechaObjeto.anio,
       fechaObjeto.mes,
       fechaObjeto.dia
-    ].join('-') + ' ' + [fechaObjeto.hora,
-        fechaObjeto.minuto,
-        fechaObjeto.segundos
-      ].join(':');
-        
+    ].join('-') + ' ' + [
+      fechaObjeto.hora,
+      fechaObjeto.minuto,
+      fechaObjeto.segundos
+    ].join(':');
+
     const objeto: object = {
       numeroCuenta: cuenta.numeroCuenta.toString(),
       montoMaximo: cuenta.montoMaximo.toString(),
@@ -79,7 +80,7 @@ export class CuentaService {
       idCliente: cuenta.idCliente.toString(),
       fechaCreacion: formatoFecha
     };
-    
+
     return objeto;
   }
 }

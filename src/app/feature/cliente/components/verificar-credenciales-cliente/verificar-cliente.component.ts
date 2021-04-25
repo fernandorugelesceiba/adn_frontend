@@ -37,9 +37,15 @@ export class VerificarCredencialesClienteComponent implements OnInit {
     this.clienteService.verificarClienteSegunNumeroYTipoDocumento(this.clienteFormulario.value).subscribe(res => {
       if (res.length > 0) {
         const clienteRes = res[0];
-        this.cliente = new Cliente(clienteRes.id,clienteRes.nombre,clienteRes.apellido,
-          clienteRes.tipoDocumento,clienteRes.numeroDocumento,
-          clienteRes.fechaCreacion,clienteRes.idUsuarioCreacion);
+        this.cliente = new Cliente(
+          clienteRes.id,
+          clienteRes.nombre,
+          clienteRes.apellido,
+          clienteRes.tipoDocumento,
+          clienteRes.numeroDocumento,
+          clienteRes.fechaCreacion,
+          clienteRes.idUsuarioCreacion
+        );
         this.usuarioEncontrado = true;
         this.notificacion.info(this.BUSQUEDA_REALIZADA_CON_EXITO);
       } else {
@@ -77,7 +83,7 @@ export class VerificarCredencialesClienteComponent implements OnInit {
     });
   }
 
-  nuevaBusqueda(){
+  nuevaBusqueda() {
     this.cliente.listadoCuentas = [];
     this.usuairoNoEncontrado();
   }
@@ -89,7 +95,7 @@ export class VerificarCredencialesClienteComponent implements OnInit {
     });
   }
 
-  private usuairoNoEncontrado(){
+  private usuairoNoEncontrado() {
     this.usuarioEncontrado = false;
     this.listadoDeCuentasDeCliente = [];
     this.listadoDeTransacciones = [];

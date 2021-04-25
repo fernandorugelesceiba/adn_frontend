@@ -141,18 +141,11 @@
       ]
     },
     "whitespace": {
-      "options": [
-        "check-branch",
-        "check-decl",
-        "check-operator",
-        "check-separator",
-        "check-type",
-        "check-typecast"
-      ]
+      
     }
   },
   "rulesDirectory": [
-    "rules/feature-import",
+   
     "rules/services-provided",
     "codelyzer"
   ]

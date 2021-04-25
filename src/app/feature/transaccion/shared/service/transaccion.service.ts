@@ -10,7 +10,7 @@ export class TransaccionService {
   private URL_TRANSACCION: string;
 
   constructor(protected http: HttpService, protected clienteService: ClienteService) {
-    this.URL_TRANSACCION = "/transacciones";
+    this.URL_TRANSACCION = '/transacciones';
   }
 
   public crear(transaccion: Transaccion) {
@@ -18,32 +18,40 @@ export class TransaccionService {
       this.http.optsName('Crear Transaccion'));
   }
 
-  private armarNuevoObjeto(transaccion: Transaccion){
+  private armarNuevoObjeto(transaccion: Transaccion) {
     const fecha = transaccion.fechaCreacion;
     const fechaObjeto = {
-      anio:fecha.getFullYear(),
-      mes:`${fecha.getMonth()+1}`,
-      dia:fecha.getDate(),
-      hora:`${fecha.getHours()}`,
-      minuto:`${fecha.getMinutes()}`,
-      segundos:`${fecha.getSeconds()}`
-    } 
-    if(parseInt(fechaObjeto.mes) < 10){
+      anio: fecha.getFullYear(),
+      mes: `${fecha.getMonth() + 1}`,
+      dia: fecha.getDate(),
+      hora: `${fecha.getHours()}`,
+      minuto: `${fecha.getMinutes()}`,
+      segundos: `${fecha.getSeconds()}`
+    };
+    if (fechaObjeto.mes.length >= 2) {
       fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    if(parseInt(fechaObjeto.hora) < 10){
+    if (fechaObjeto.hora.length >= 2) {
       fechaObjeto.hora = `0${fechaObjeto.hora}`;
     }
-    if(parseInt(fechaObjeto.minuto) < 10){
+    if (fechaObjeto.minuto.length >= 2) {
       fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
     }
-    if(parseInt(fechaObjeto.segundos) < 10){
+    if (fechaObjeto.segundos.length >= 2) {
       fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 
-    const formatoFecha = [fechaObjeto.anio,fechaObjeto.mes,fechaObjeto.dia].join('-') + ' ' + [fechaObjeto.hora,fechaObjeto.minuto,fechaObjeto.segundos].join(':');
+    const formatoFecha = [
+      fechaObjeto.anio,
+      fechaObjeto.mes,
+      fechaObjeto.dia
+    ].join('-') + ' ' + [
+      fechaObjeto.hora,
+      fechaObjeto.minuto,
+      fechaObjeto.segundos
+    ].join(':');
 
-    let objeto: object = {
+    const objeto: object = {
       id: transaccion.id.toString(),
       idCuentaOrigen: transaccion.idCuentaOrigen.toString(),
       idCuentaDestino: transaccion.idCuentaDestino.toString(),
@@ -51,7 +59,8 @@ export class TransaccionService {
       porcentajeDescuento: transaccion.porcentajeDescuento.toString(),
       fechaCreacion: formatoFecha,
       estado: transaccion.estado.toString()
-    }
+    };
+
     return objeto;
   }
 }

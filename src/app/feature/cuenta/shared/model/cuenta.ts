@@ -9,9 +9,13 @@ export class Cuenta {
     fechaCreacion: Date;
     listaTransacciones: Array<Transaccion>;
 
-    constructor(id: number, numeroCuenta: string,
-         montoMaximo: number, monto: number, 
-         idCliente: number, fechaCreacion: Date)
+    constructor(
+        id: number,
+        numeroCuenta: string,
+        montoMaximo: number,
+        monto: number,
+        idCliente: number,
+        fechaCreacion: Date)
     {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
@@ -27,9 +31,9 @@ export class Cuenta {
         for (const transaccion of lista) {
             this.listaTransacciones.push(new Transaccion(
                 transaccion.id, transaccion.idCuentaOrigen,
-                transaccion.idCuentaDestino, transaccion.valorTransaccion, 
+                transaccion.idCuentaDestino, transaccion.valorTransaccion,
                 transaccion.porcentajeDescuento, transaccion.fechaCreacion,
-                transaccion.estado,transaccion.numeroCuentaOrigen,
+                transaccion.estado, transaccion.numeroCuentaOrigen,
                 transaccion.numeroCuentaDestino
             ));
         }

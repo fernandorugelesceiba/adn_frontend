@@ -12,17 +12,17 @@ import { Cuenta } from '../../shared/model/cuenta';
   styleUrls: ['./crear-cuentas.component.css']
 })
 export class CrearCuentasComponent implements OnInit {
-  private NO_SE_ECONTRARON_RESULTADOS = "No se encontraron resultado";
-  private CUENTA_CREADA = "La cuenta fue creada con exito";
-  private CUENTA_NO_CREADA = "La cuenta no pudo ser creada";
+  private NO_SE_ECONTRARON_RESULTADOS = 'No se encontraron resultado';
+  private CUENTA_CREADA = 'La cuenta fue creada con exito';
+  private CUENTA_NO_CREADA = 'La cuenta no pudo ser creada';
   private LONGITUD_MINIMA_PERMITIDA_NUMERO_DOCUMENTO = 10;
-  
+
 
   public listadoCuentas: Array<Cuenta>;
   public cuentasFormulario: FormGroup;
   public listadoClientes: Array<Cliente>;
 
-  constructor(protected cuentaService: CuentaService,protected clienteService: ClienteService, private toastr: ToastrService) {
+  constructor(protected cuentaService: CuentaService, protected clienteService: ClienteService, private toastr: ToastrService) {
     this.listadoClientes = [];
   }
 
@@ -34,7 +34,7 @@ export class CrearCuentasComponent implements OnInit {
   obtenerListadoClientes() {
     this.clienteService.obtenerListadoClientes().subscribe(res => {
       if (res.length > 0) {
-          this.listadoClientes = res;
+        this.listadoClientes = res;
       } else {
         this.toastr.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
@@ -54,8 +54,8 @@ export class CrearCuentasComponent implements OnInit {
       this.toastr.error(JSON.stringify(err));
     });
   }
-  
-  private construirFormulario(){
+
+  private construirFormulario() {
     this.cuentasFormulario = new FormGroup({
       numeroCuenta: new FormControl('', [Validators.required, Validators.minLength(this.LONGITUD_MINIMA_PERMITIDA_NUMERO_DOCUMENTO)]),
       idCliente: new FormControl('', [Validators.required]),

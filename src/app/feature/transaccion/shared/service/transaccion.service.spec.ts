@@ -12,7 +12,6 @@ describe('TransaccionService', () => {
   let httpMock: HttpTestingController;
   let service: TransaccionService;
   const URL_TRANSACCION = environment.endpoint+'/transacciones';
-
   beforeEach(() => {
     const injector = TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
