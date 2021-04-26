@@ -37,8 +37,8 @@ export class CuentaService {
   }
 
   public crear(cuenta: Cuenta) {
-    const objeto = this.armarNuevoObjeto(cuenta);
-    return this.http.doPost<any, boolean>(`${environment.endpoint}${this.URL_CUENTAS}`, objeto,
+    const objeto: object = this.armarNuevoObjeto(cuenta);
+    return this.http.doPost<object, boolean>(`${environment.endpoint}${this.URL_CUENTAS}`, objeto,
       this.http.optsName('Crear cuenta'));
   }
 

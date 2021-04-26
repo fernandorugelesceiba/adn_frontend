@@ -37,7 +37,18 @@ describe('TransaccionService', () => {
   });
 
   it('deberia crear una cuenta con fechas de un digito', () => {
-    const fecha = new Date(1962, 6, 7, 2, 8, 3);
+    const fecha = new Date(2013, 6, 7, 2, 8, 3);
+    const dummyTransaccion = new Transaccion(1, 1, 2, 11200, 0.5, fecha, 1, '', '');
+    service.crear(dummyTransaccion).subscribe((respuesta) => {
+      expect(respuesta).toEqual(true);
+    });
+    const req = httpMock.expectOne(URL_TRANSACCION);
+    expect(req.request.method).toBe('POST');
+    req.event(new HttpResponse<boolean>({ body: true }));
+  });
+
+  it('deberia crear una cuenta con fechas de dos digitos', () => {
+    const fecha = new Date(2013, 12, 12, 17, 15, 20);
     const dummyTransaccion = new Transaccion(1, 1, 2, 11200, 0.5, fecha, 1, '', '');
     service.crear(dummyTransaccion).subscribe((respuesta) => {
       expect(respuesta).toEqual(true);

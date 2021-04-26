@@ -71,7 +71,18 @@ describe('CuentaService', () => {
 
 
   it('deberia crear una cuenta con fechas de un digito', () => {
-    const fecha = new Date(1962, 6, 7, 2, 8, 3);
+    const fecha = new Date(2013, 6, 7, 2, 8, 3);
+    const dummyCuenta = new Cuenta(1,'1234567890',1200000, 500000,1, fecha);
+    service.crear(dummyCuenta).subscribe((respuesta) => {
+      expect(respuesta).toEqual(true);
+    });
+    const req = httpMock.expectOne(URL_CUENTAS);
+    expect(req.request.method).toBe('POST');
+    req.event(new HttpResponse<boolean>({body: true}));
+  });
+
+  it('deberia crear una cuenta con fechas de dos', () => {
+    const fecha = new Date(2013, 12, 12, 17, 15, 20);
     const dummyCuenta = new Cuenta(1,'1234567890',1200000, 500000,1, fecha);
     service.crear(dummyCuenta).subscribe((respuesta) => {
       expect(respuesta).toEqual(true);
