@@ -8,9 +8,12 @@ import { Transaccion } from '../model/transaccion';
 @Injectable()
 export class TransaccionService {
   private URL_TRANSACCION: string;
+  private MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA: number;
 
   constructor(protected http: HttpService, protected clienteService: ClienteService) {
     this.URL_TRANSACCION = '/transacciones';
+    this.MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA = 2;
+
   }
 
   public crear(transaccion: Transaccion) {
@@ -28,16 +31,16 @@ export class TransaccionService {
       minuto: `${fecha.getMinutes()}`,
       segundos: `${fecha.getSeconds()}`
     };
-    if (fechaObjeto.mes.length < 2) {
+    if (fechaObjeto.mes.length < this.MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA) {
       fechaObjeto.mes = `0${fechaObjeto.mes}`;
     }
-    if (fechaObjeto.hora.length < 2) {
+    if (fechaObjeto.hora.length < this.MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA) {
       fechaObjeto.hora = `0${fechaObjeto.hora}`;
     }
-    if (fechaObjeto.minuto.length < 2) {
+    if (fechaObjeto.minuto.length < this.MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA) {
       fechaObjeto.minuto = `0${fechaObjeto.minuto}`;
     }
-    if (fechaObjeto.segundos.length < 2) {
+    if (fechaObjeto.segundos.length < this.MAXIMA_CANTIDAD_CARACTERES_UNA_SIFRA) {
       fechaObjeto.segundos = `0${fechaObjeto.segundos}`;
     }
 

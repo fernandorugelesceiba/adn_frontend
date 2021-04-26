@@ -148,12 +148,40 @@ describe('CrearTransaccionComponent', () => {
   });
 
   describe('cuando el metodo crearTransaccion es llamado', () => {
-    it('debe crear una transaccion', () => {
+    it('debe emitir un error', () => {
       // arrange
       const transaccion = new Transaccion(1, 1, 2, 100, 0.5, new Date(), 1, '', '');
       component.transaccion = transaccion;
       component.notificacion = notificacionService;
       spyOn(transaccionService, 'crear').and.returnValue(throwError({ error: 'error' }));
+
+      // act
+      component.crearTransaccion();
+
+      // assert
+      expect(component.cuentaDestinoSeleccionada).toBeUndefined();
+    });
+
+    it('debe crear una transaccion', () => {
+      // arrange
+      const transaccion = new Transaccion(1, 1, 2, 100, 0.5, new Date(), 1, '', '');
+      component.transaccion = transaccion;
+      component.notificacion = notificacionService;
+      spyOn(transaccionService, 'crear').and.returnValue(of(true));
+
+      // act
+      component.crearTransaccion();
+
+      // assert
+      expect(component.cuentaDestinoSeleccionada).toBeUndefined();
+    });
+
+    it('no debe crear una transaccion', () => {
+      // arrange
+      const transaccion = new Transaccion(1, 1, 2, 100, 0.5, new Date(), 1, '', '');
+      component.transaccion = transaccion;
+      component.notificacion = notificacionService;
+      spyOn(transaccionService, 'crear').and.returnValue(of(false));
 
       // act
       component.crearTransaccion();
