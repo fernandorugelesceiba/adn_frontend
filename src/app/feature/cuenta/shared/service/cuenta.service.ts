@@ -43,7 +43,7 @@ export class CuentaService {
   }
 
   private armarNuevoObjeto(cuenta: Cuenta) {
-    const fecha = new Date();
+    const fecha = cuenta.fechaCreacion;
     const fechaObjeto = {
       anio: fecha.getFullYear(),
       mes: `${fecha.getMonth() + 1}`,

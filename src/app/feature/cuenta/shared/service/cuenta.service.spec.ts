@@ -70,8 +70,9 @@ describe('CuentaService', () => {
   });
 
 
-  it('deberia crear una cuenta', () => {
-    const dummyCuenta = new Cuenta(1,'1234567890',1200000, 500000,1, new Date());
+  it('deberia crear una cuenta con fechas de un digito', () => {
+    var fecha = new Date(1962, 6, 7, 2, 8, 3);
+    const dummyCuenta = new Cuenta(1,'1234567890',1200000, 500000,1, fecha);
     service.crear(dummyCuenta).subscribe((respuesta) => {
       expect(respuesta).toEqual(true);
     });
