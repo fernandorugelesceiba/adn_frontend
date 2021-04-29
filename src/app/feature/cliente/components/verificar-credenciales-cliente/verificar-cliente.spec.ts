@@ -10,7 +10,7 @@ import { HttpService } from '@core/services/http.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Cliente } from '@cliente/shared/model/cliente';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Transaccion } from '@transaccion/shared/model/transaccion';
@@ -65,6 +65,54 @@ describe('VerificarCredencialesClienteComponent', () => {
     });
   });
 
+  describe('cuando el metodo consultarPorTipoYNumeroDocumento es llamado', () => {
+    it('debe retornar un cliente', () => {
+      // arrange
+      const cliente = new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1);
+      const listaClientes = [cliente];
+      component.clienteFormulario.controls.tipoDocumento.setValue(cliente.tipoDocumento);
+      component.clienteFormulario.controls.numeroDocumento.setValue(cliente.numeroDocumento);
+      spyOn(clienteService, 'verificarClienteSegunNumeroYTipoDocumento').and.returnValue(of(listaClientes));
+      component.notificacion = notificacionService;
+
+      //  act
+      component.consultarPorTipoYNumeroDocumento();
+
+      // assert
+      expect(component.cliente).toEqual(cliente);
+      expect(component.usuarioEncontrado).toEqual(true);
+    });
+
+    it('no debe retornar un cliente', () => {
+      // arrange
+      const cliente = new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1);
+      const listaClientes = [];
+      component.clienteFormulario.controls.tipoDocumento.setValue(cliente.tipoDocumento);
+      component.clienteFormulario.controls.numeroDocumento.setValue(cliente.numeroDocumento);
+      spyOn(clienteService, 'verificarClienteSegunNumeroYTipoDocumento').and.returnValue(of(listaClientes));
+      component.notificacion = notificacionService;
+
+      //  act
+      component.consultarPorTipoYNumeroDocumento();
+
+      // assert
+      expect(component.usuarioEncontrado).toEqual(false);
+    });
+
+    it('debe retornar un error', () => {
+      // arrange
+      component.clienteFormulario.controls.numeroDocumento.setValue('1098744055');
+      spyOn(clienteService, 'verificarClienteSegunNumeroYTipoDocumento').and.returnValue(throwError({ error: 'error' }));
+      component.notificacion = notificacionService;
+
+      //  act
+      component.consultarPorTipoYNumeroDocumento();
+
+      // assert
+      expect(component.usuarioEncontrado).toEqual(false);
+    });
+  });
+
 
   describe('cuando el metodo consultarCuentasSegunCliente es llamado', () => {
     it('debe retornar un cliente', () => {
@@ -98,6 +146,20 @@ describe('VerificarCredencialesClienteComponent', () => {
 
       // assert
       expect(component.cliente.listadoCuentas.length).toBeGreaterThan(0);
+    });
+
+    it('debe retornar un error', () => {
+      // arrange
+      const cliente = new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1);
+      component.notificacion = notificacionService;
+      component.cliente = cliente;
+      spyOn(clienteService, 'obtenerListaCuentaSegunCliente').and.returnValue(throwError({ error: 'error' }));
+
+      // act
+      component.consultarCuentasSegunCliente();
+
+      // assert
+      expect(component.cliente.listadoCuentas.length).toBe(0);
     });
   });
 
