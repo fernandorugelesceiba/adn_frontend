@@ -15,3 +15,8 @@
 .contenedor-listado-cuentas .cada-item:nth-child(2n+0) > .row {
     background: linear-gradient(180deg, #ffffff, #40404026);
   }
+
+  .sin-datos{
+    text-align: center;
+    font-size: 20px;
+  }

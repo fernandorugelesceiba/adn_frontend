@@ -10,9 +10,8 @@ import { MenuItem } from '@core/modelo/menu-item';
 export class AppComponent {
   title = 'ADN fernando';
   public companies: MenuItem[] = [
-    { url: '/home', nombre: 'home' },
     { url: '/cliente', nombre: 'cliente' },
-    { url: '/transacciones', nombre: 'transaccion' },
-    { url: '/cuenta', nombre: 'cuenta' }
+    { url: '/cuenta', nombre: 'cuenta' },
+    { url: '/transacciones', nombre: 'transaccion' }
   ];
 }

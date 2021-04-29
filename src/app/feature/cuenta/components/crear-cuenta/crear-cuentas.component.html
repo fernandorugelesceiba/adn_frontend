@@ -12,7 +12,7 @@
                         <label>Cliente</label>
                         <select validar class="form-control" formControlName="idCliente" id="idCliente"
                             name="idCliente">
-                            <option *ngFor='let item of listadoClientes' [value]="item.id">
+                            <option *ngFor='let item of (listadoClientes$ | async)' [value]="item.id">
                                 {{item.nombre}}
                             </option>
                         </select>
@@ -28,7 +28,7 @@
                             placeholder="Monto maximo" class="form-control" formControlName="montoMaximo">
                     </div>
                     <div class="col-12 mt-3" *ngIf="cuentasFormulario.valid">
-                        <button type="submit" class="btn btn-primary">Ingresar</button>
+                        <button type="submit" id="botonCrearCuenta" class="btn btn-primary">Ingresar</button>
                     </div>
                 </div>
             </form>

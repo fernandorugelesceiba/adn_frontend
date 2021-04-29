@@ -6,6 +6,10 @@ import { SharedModule } from '@shared/shared.module';
 import { CuentaService } from './shared/service/cuenta.service';
 import { CuentaComponent } from './components/cuenta/cuenta.component';
 import { CrearCuentasComponent } from './components/crear-cuenta/crear-cuentas.component';
+import { HttpService } from '@core/services/http.service';
+import { ToastrService } from 'ngx-toastr';
+import { ClienteService } from '@cliente/shared/service/cliente.service';
+import { ManejadorError } from '@core/interceptor/manejador-error';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,6 @@ import { CrearCuentasComponent } from './components/crear-cuenta/crear-cuentas.c
     CuentaRoutingModule,
     SharedModule
   ],
-  providers: [CuentaService]
+  providers: [CuentaService, HttpService, ToastrService, ClienteService, ManejadorError]
 })
 export class CuentaModule { }

@@ -4,6 +4,7 @@ import { VerificarCredencialesClienteComponent } from './components/verificar-cr
 import { SharedModule } from '@shared/shared.module';
 import { ClienteService } from './shared/service/cliente.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpService } from '@core/services/http.service';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,6 @@ import { ToastrService } from 'ngx-toastr';
     ClienteRoutingModule,
     SharedModule
   ],
-  providers: [ClienteService, ToastrService]
+  providers: [ClienteService, ToastrService, HttpService]
 })
 export class ClienteModule { }

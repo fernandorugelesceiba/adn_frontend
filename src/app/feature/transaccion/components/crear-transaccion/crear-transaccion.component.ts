@@ -55,7 +55,7 @@ export class CrearTransaccionComponent implements OnInit {
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje ? err.error.mensaje : err.error));
     });
   }
 
@@ -69,7 +69,7 @@ export class CrearTransaccionComponent implements OnInit {
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje ? err.error.mensaje : err.error));
     });
   }
 
@@ -92,7 +92,7 @@ export class CrearTransaccionComponent implements OnInit {
         this.notificacion.warning(this.TRANSACCION_NO_CREADA);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje ? err.error.mensaje : err.error));
     });
   }
 

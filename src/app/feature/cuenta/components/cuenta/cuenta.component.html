@@ -1,6 +1,11 @@
-<nav>
-  <a id="linkCuentas" routerLink="./" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Cuenta</a>
-  <a id="linkListarCuentas" routerLink="./listar" routerLinkActive="active">listar cuentas</a>
-  <a id="linkCrearCuentas" routerLink="./crear" routerLinkActive="active">crear cuentas</a>
-</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-4 items-cuenta">
+      <a id="linkListarCuentas" routerLink="./listar" routerLinkActive="active"><i class="fas fa-list-ul"></i>Listar cuentas</a>
+    </div>
+    <div class="col-4 items-cuenta">
+      <a id="linkCrearCuentas" routerLink="./crear" routerLinkActive="active"><i class="far fa-plus-square"></i>Crear cuentas</a>
+    </div>
+  </div>
+</div>
 <router-outlet></router-outlet>

@@ -18,7 +18,7 @@
                 </select>
               </div>
               <div class="col-12">
-                <button type="submit" class="btn btn-primary mt-3" *ngIf="idClienteSeleccionado">Trear cuentas</button>
+                <button type="submit" id="botonTraerCuentas" class="btn btn-primary mt-3" *ngIf="idClienteSeleccionado">Trear cuentas</button>
               </div>
             </form>
           </div>
@@ -45,7 +45,7 @@
               type="number" name="montoTransaccion" [(ngModel)]="transaccion.valorTransaccion"/>
           </div>
           <div class="col-12 text-center" *ngIf="transaccion.valorTransaccion">
-            <button type="submit" class="btn btn-primary mt-3">Crear transaccion</button>
+            <button type="submit" id="botonCrearTransaccion" class="btn btn-primary mt-3">Crear transaccion</button>
           </div>
         </div>
       </form>
@@ -75,7 +75,7 @@
                   </div>
                 </div>
                 <div class="cada-item" *ngFor="let cuenta of listadoCuentasOrigen">
-                  <div class="row body puntero" (click)="seleccionarCuentaOrigen(cuenta)">
+                  <div class="row body puntero" name="origen" (click)="seleccionarCuentaOrigen(cuenta)">
                     <div class="col">
                       {{cuenta.numeroCuenta}}
                     </div>
@@ -105,7 +105,7 @@
                   </div>
                 </div>
                 <div class="cada-item" *ngFor="let cuenta of listadoCuentasDestino">
-                  <div (click)="seleccionarCuentaDestino(cuenta)" class="row body puntero"
+                  <div name="destino" (click)="seleccionarCuentaDestino(cuenta)" class="row body puntero"
                     *ngIf="cuenta.id !== cuentaOrigenSeleccionada.id">
                     <div class="col">
                       {{cuenta.numeroCuenta}}

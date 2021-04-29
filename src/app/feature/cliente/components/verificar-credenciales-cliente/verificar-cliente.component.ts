@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+
 import { Transaccion } from '@transaccion/shared/model/transaccion';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
 import { Cliente } from '../../shared/model/cliente';
@@ -52,7 +53,7 @@ export class VerificarCredencialesClienteComponent implements OnInit {
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje ? err.error.mensaje : err.error));
     });
   }
 
@@ -65,7 +66,7 @@ export class VerificarCredencialesClienteComponent implements OnInit {
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje));
     });
   }
 
@@ -79,7 +80,7 @@ export class VerificarCredencialesClienteComponent implements OnInit {
         this.notificacion.warning(this.NO_SE_ECONTRARON_RESULTADOS);
       }
     }, err => {
-      this.notificacion.error(JSON.stringify(err));
+      this.notificacion.error(JSON.stringify(err.error.mensaje));
     });
   }
 

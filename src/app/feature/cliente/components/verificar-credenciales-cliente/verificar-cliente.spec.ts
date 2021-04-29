@@ -60,7 +60,7 @@ describe('VerificarCredencialesClienteComponent', () => {
 
       // assert
       expect(component.cliente).toEqual(cliente);
-      expect(component.usuarioEncontrado).toBeTrue();
+      expect(component.usuarioEncontrado).toEqual(true);
     });
   });
 
@@ -69,7 +69,7 @@ describe('VerificarCredencialesClienteComponent', () => {
     it('debe retornar un cliente', () => {
       // arrange
       const cliente = new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1);
-      const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+      const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
       const listadoCuentas = [cuenta];
       component.notificacion = notificacionService;
       spyOn(clienteService, 'obtenerListaCuentaSegunCliente').and.returnValue(of(listadoCuentas));
@@ -87,7 +87,7 @@ describe('VerificarCredencialesClienteComponent', () => {
     it('debe retornar una lista de clientes', () => {
       // arrange
       const cliente = new Cliente(1, 'fernando', 'rugeles', 1, '1098744055', '2021-04-15 09:55:43', 1);
-      const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1, new Date());
+      const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
       const listadoCuentas = [cuenta];
       component.notificacion = notificacionService;
       spyOn(clienteService, 'obtenerListaCuentaSegunCliente').and.returnValue(of(listadoCuentas));

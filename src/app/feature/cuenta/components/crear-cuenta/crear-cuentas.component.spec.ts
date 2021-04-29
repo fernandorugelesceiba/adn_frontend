@@ -86,7 +86,7 @@ describe('ListadoCuentasComponent', () => {
     describe('cuando el metodo crearCuenta es llamado', () => {
         it('debe crear una cuenta', () => {
             // arrange
-            const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+            const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
             component.cuentasFormulario.controls.numeroCuenta.setValue(cuenta.numeroCuenta);
             component.cuentasFormulario.controls.idCliente.setValue(cuenta.idCliente);
             component.cuentasFormulario.controls.monto.setValue(cuenta.monto);
@@ -103,7 +103,7 @@ describe('ListadoCuentasComponent', () => {
 
         it('no debe crear una cuenta', () => {
             // arrange
-            const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+            const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
             component.cuentasFormulario.controls.numeroCuenta.setValue(cuenta.numeroCuenta);
             component.cuentasFormulario.controls.idCliente.setValue(cuenta.idCliente);
             component.cuentasFormulario.controls.monto.setValue(cuenta.monto);
@@ -120,7 +120,7 @@ describe('ListadoCuentasComponent', () => {
 
         it('debe retornar un error', () => {
             // arrange
-            const cuenta = new Cuenta(1,'1234567890',1200000, 500000,1,new Date());
+            const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
             component.cuentasFormulario.controls.numeroCuenta.setValue(cuenta.numeroCuenta);
             component.cuentasFormulario.controls.idCliente.setValue(cuenta.idCliente);
             component.cuentasFormulario.controls.monto.setValue(cuenta.monto);

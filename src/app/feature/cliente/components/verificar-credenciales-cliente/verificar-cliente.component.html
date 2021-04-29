@@ -23,14 +23,14 @@
                                     formControlName="numeroDocumento">
                             </div>
                             <div class="col-12 mt-3" *ngIf="clienteFormulario.valid">
-                                <button type="submit" class="btn btn-primary">Ingresar</button>
+                                <button type="submit" id="verificarCliente" class="btn btn-primary">Ingresar</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6" *ngIf="usuarioEncontrado">
+        <div class="col-6" id="contenedorUsuario" *ngIf="usuarioEncontrado">
             <div class="row mt-3">
                 <div class="col-12">
                     <h5>Tus datos</h5>
@@ -142,7 +142,7 @@
                                 {{transaccion.valorTransaccion}}
                             </div>
                             <div class="col">
-                                {{transaccion.montoMaximo}}
+                                {{transaccion.porcentajeDescuento}}
                             </div>
                             <div class="col">
                                 {{transaccion.fechaCreacion}}

@@ -1,7 +1,7 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-12">
-            <div class="contenedor-listado-cuentas" *ngIf="listadoCuentas.length > 0">
+            <div id="contenedorListadoCuentas" class="contenedor-listado-cuentas" *ngIf="(listadoCuentas$ | async)?.length > 0">
                 <div class="row encabezado">
                     <div class="col">
                         Número de cuenta
@@ -22,7 +22,7 @@
                         ELiminar
                     </div>
                 </div>
-                <div class="cada-item" *ngFor="let cuenta of listadoCuentas; let i = index">
+                <div class="cada-item" *ngFor="let cuenta of (listadoCuentas$ | async); let i = index">
                     <div class="row body">
                         <div class="col">
                             {{cuenta.numeroCuenta}}
@@ -40,14 +40,17 @@
                             {{cuenta.fechaCreacion}}
                         </div>
                         <div class="col">
-                            <button type="button" (click)="eliminar(cuenta.id,i)" class="btn btn-warning">
+                            <button [id]="'botonEliminar'+i" type="button" (click)="eliminar(cuenta.id,i)" class="btn btn-warning">
                                 <i class="far fa-trash-alt"></i>
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
+        </div>
+        <div class="col-12 sin-datos" id="sinDatos" *ngIf="(listadoCuentas$ | async)?.length.length == 0">
+            <i class="far fa-calendar-times"></i>
+            No se encontrarón datos
         </div>
     </div>
 </div>
