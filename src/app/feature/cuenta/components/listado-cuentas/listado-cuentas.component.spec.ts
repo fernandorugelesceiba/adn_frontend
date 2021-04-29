@@ -1,7 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ListadoCuentasComponent } from './listado-cuentas.component';
 import { ClienteService } from '@cliente/shared/service/cliente.service';
@@ -10,9 +9,10 @@ import { CuentaService } from '@cuenta/shared/service/cuenta.service';
 import { Cliente } from '@cliente/shared/model/cliente';
 import { of } from 'rxjs';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ManejadorError } from '@core/interceptor/manejador-error';
+import { TransaccionService } from '@transaccion/shared/service/transaccion.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ListadoCuentasComponent', () => {
   let component: ListadoCuentasComponent;
@@ -25,14 +25,11 @@ describe('ListadoCuentasComponent', () => {
       declarations: [ListadoCuentasComponent],
       imports: [
         CommonModule,
-        HttpClientModule,
+        HttpClientTestingModule,
         RouterTestingModule,
-        ReactiveFormsModule,
-        FormsModule,
-        BrowserAnimationsModule,
         ToastrModule.forRoot()
       ],
-      providers: [ClienteService, CuentaService, HttpService, ToastrService]
+      providers: [TransaccionService, ClienteService, CuentaService, HttpService, ToastrService, ManejadorError]
     }).compileComponents();
   }));
 
