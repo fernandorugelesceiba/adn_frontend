@@ -7,7 +7,7 @@ import { ClienteService } from '@cliente/shared/service/cliente.service';
 import { HttpService } from '@core/services/http.service';
 import { CuentaService } from '@cuenta/shared/service/cuenta.service';
 import { Cliente } from '@cliente/shared/model/cliente';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Cuenta } from '@cuenta/shared/model/cuenta';
 import { ManejadorError } from '@core/interceptor/manejador-error';
@@ -57,6 +57,17 @@ describe('ListadoCuentasComponent', () => {
       // assert
       expect(component.mapaClientes).toEqual(mapaCliente);
     });
+
+    it('debe retornar un error', () => {
+      // arrange
+      spyOn(clienteService, 'obtenerListadoClientes').and.returnValue(throwError({ error: 'error' }));
+
+      // act
+      component.obtenerListadoClientes();
+
+      // assert
+      expect(component.mapaClientes.size).toBe(0);
+    });
   });
 
 
@@ -72,16 +83,71 @@ describe('ListadoCuentasComponent', () => {
       // assert
       expect(component.listadoCuentas.length).toBeGreaterThan(0);
     });
+
+    it('no debe retornar nada', () => {
+      // arrange
+      const listadoCuentas = [];
+      spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(of(listadoCuentas));
+
+      // act
+      component.consultarCuentas();
+
+      // assert
+      expect(component.listadoCuentas.length).toBe(0);
+    });
+
+    it('debe retornar un error', () => {
+      // arrange
+      spyOn(cuentaService, 'obtenerListaCuentas').and.returnValue(throwError({ error: 'error' }));
+
+      // act
+      component.consultarCuentas();
+
+      // assert
+      expect(component.listadoCuentas.length).toBe(0);
+    });
   });
 
   describe('cuando el metodo eliminar es llamado', () => {
     it('debe eliminar un registro y quitarlo de la lista', () => {
+      // arrange
+      const cuenta = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
+      const listadoCuentas = [cuenta];
+      component.listadoCuentas = listadoCuentas;
+      component.listadoCuentas$.subscribe(item => {
+        item.push(cuenta);
+      });
+      spyOn(cuentaService, 'eliminar').and.returnValue(of(false));
+
+      // act
+      component.eliminar(cuenta.id, 1);
+
+      // assert
+      expect(component.listadoCuentas.length).toBeGreaterThan(0);
+    });
+
+    it('no debe eliminar registro de la lista', () => {
       // arrange
       const cuentaUno = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
       const cuentaDos = new Cuenta(2, '1234567891', 1200000, 500000, 1, new Date());
       const listadoCuentas = [cuentaUno, cuentaDos];
       component.listadoCuentas = listadoCuentas;
       spyOn(cuentaService, 'eliminar').and.returnValue(of(true));
+
+      // act
+      component.eliminar(cuentaDos.id, 1);
+
+      // assert
+      expect(component.listadoCuentas.length).toBeGreaterThan(0);
+    });
+
+    it('debe retornar un error', () => {
+      // arrange
+      const cuentaUno = new Cuenta(1, '1234567890', 1200000, 500000, 1, new Date());
+      const cuentaDos = new Cuenta(2, '1234567891', 1200000, 500000, 1, new Date());
+      const listadoCuentas = [cuentaUno, cuentaDos];
+      component.listadoCuentas = listadoCuentas;
+      spyOn(cuentaService, 'eliminar').and.returnValue(throwError({ error: 'error' }));
 
       // act
       component.eliminar(cuentaDos.id, 1);
